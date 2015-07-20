@@ -18,7 +18,7 @@ $(document).ready(function() {
 				total += expenditure;
 				nodes.push({name: data[i].Name});
 				testNodes.push({name: data[i].Name});
-				testLinks.push({source: 0, target: i, value: expenditure});
+				testLinks.push({source: 0, target: i + 1, value: expenditure});
 				activityCodes.push(data[i].Code);
 			}
 			var expenseCodes = [];
