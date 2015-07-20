@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var nodes = [{name: "San Francisco"}];
-	var links = [];
+	var testLinks = [];
 	var testNodes = [{name: "San Francisco"}];
 
 	var activitiesDfD =  $.ajax({
@@ -18,7 +18,7 @@ $(document).ready(function() {
 				total += expenditure;
 				nodes.push({name: data[i].Name});
 				testNodes.push({name: data[i].Name});
-				links.push({source: 0, target: i, value: expenditure});
+				testLinks.push({source: 0, target: i, value: expenditure});
 				activityCodes.push(data[i].Code);
 			}
 			var expenseCodes = [];
@@ -59,19 +59,31 @@ $(document).ready(function() {
 					}));			
 				}
 				$.when.apply($, expensesDfds).then(function(data, textStatus, jqXhr){
-					console.log(nodes);
-					var svg = d3.select("#chart").append("svg").append("g");
-					var color = d3.scale.category20();
+					console.log(testNodes);
+					console.log(testLinks);
+				  var margin = {top: 1, right: 1, bottom: 6, left: 1};
+				  var width = 960 - margin.left - margin.right;
+				  var height = 500 - margin.top - margin.bottom;
+				  var color = d3.scale.category20();
+					var svg = d3.select("#chart").append("svg")
+						.attr({
+							width: width + margin.left + margin.right,
+							height: height + margin.top + margin.bottom
+						})
+						.append("g")
+						.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 					var sankey = d3.sankey()
 						.nodeWidth(30)
 						.nodePadding(10)
-						.size([500, 500])
+						.size([width, height])
 						.nodes(testNodes)
-						.links(links)
+						.links(testLinks)
 						.layout(32);
+
 					var path = sankey.link();
 					var linkSvg = svg.append("g").selectAll(".link")
-						.data(links)
+						.data(testLinks)
 						.enter()
 						.append("path")
 						.attr({
