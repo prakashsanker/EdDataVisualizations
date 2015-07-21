@@ -27,11 +27,11 @@ $(document).ready(function() {
 			var subActivitiesCodes = [];
 
 			for (var i = 0; i < activityCodes.length; i++) {
-				subActivitiesDfds.push( $.ajax({
-					url: "http://localhost:8080/district/1/activities/" + activityCodes[i] + "/subActivities",
-					type: "GET",
-					dataType: "json",
-					success: function(data) {
+				var test = i;
+
+				var doSomething = function(parentId) {
+					return function(data) {
+						debugger
 						if (data) {
 							for (var i = 0; i < data.length; i++) {
 								nodes.push({name: data[i].Name});
@@ -39,7 +39,23 @@ $(document).ready(function() {
 							}
 						}
 					}
-				}));
+				}
+				var dfd = $.getJSON("http://localhost:8080/district/1/activities/" + activityCodes[i] + "/subActivities", doSomething(test));
+				subActivitiesDfds.push(dfd);
+				// 	$.ajax({
+				// 	url: "http://localhost:8080/district/1/activities/" + activityCodes[i] + "/subActivities",
+				// 	type: "GET",
+				// 	dataType: "json",
+				// 	success: function(data) {
+				// 		if (data) {
+				// 			for (var i = 0; i < data.length; i++) {
+				// 				debugger
+				// 				nodes.push({name: data[i].Name});
+				// 				subActivitiesCodes.push(data[i].Code);
+				// 			}
+				// 		}
+				// 	}
+				// }));
 			}
 
 			$.when.apply($, subActivitiesDfds).done(function(data, textStatus, jqXhr){
