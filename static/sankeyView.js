@@ -35,10 +35,15 @@ $(document).ready(function() {
 					return function(data) {
 						if (data) {
 							for (var i = 0; i < data.length; i++) {
-								//testNodes.push({name: data[i].Name});
+								testNodes.push({name: data[i].Name});
+								var expenditure = data[i].Expenditure;
+								expenditure = parseFloat(expenditure);
+								if (expenditure === 0) {
+									expenditure = 1;
+								}
 								subActivitiesCodes.push(data[i].Code);
 								// links.push({source: parentId, target: nodes.length - 1, value: data[i].Expenditure});
-								//testLinks.push({source: parentId, target: testNodes.length - 1, value: data[i].Expenditure});
+								testLinks.push({source: parentId, target: testNodes.length - 1, value: expenditure});
 							}
 						}
 					}
@@ -89,8 +94,8 @@ $(document).ready(function() {
 					console.log("LINKS");
 					console.log(testLinks);
 				  var margin = {top: 1, right: 1, bottom: 6, left: 1};
-				  var width = 700 - margin.left - margin.right;
-				  var height = 300 - margin.top - margin.bottom;
+				  var width = 2000 - margin.left - margin.right;
+				  var height = 800 - margin.top - margin.bottom;
 				  var color = d3.scale.category20();
 					var svg = d3.select("#chart").append("svg")
 						.attr({
