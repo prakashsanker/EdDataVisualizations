@@ -143,7 +143,7 @@ $(document).ready(function() {
 					                d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
 					            ) + ")");
 					    sankey.relayout();
-					    link.attr("d", path);
+					    linkSvg.attr("d", path);
 					  }
 					nodes.append("rect")
 						.attr({
