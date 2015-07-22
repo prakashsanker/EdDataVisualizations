@@ -113,7 +113,7 @@ $(document).ready(function() {
 							d: path
 						})
 						.style("stroke-width", function(d) {
-							return Math.max(1, d.dy);
+							return Math.max(10, d.dy);
 						});
 
 					linkSvg.append("title")
