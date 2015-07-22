@@ -54,48 +54,38 @@ $(document).ready(function() {
 
 
 			$.when.apply($, subActivitiesDfds).done(function(data, textStatus, jqXhr){
-				// var expensesDfds = [];
-				// for (var i = 0; i < subActivitiesCodes.length; i++) {
-				// 	var addExpenses = function(parentId) {
-				// 		return function(data) {
-				// 			if (data) {
-				// 				for (var i = 0; i < data.length; i++) {
-				// 					testNodes.push({name: data[i].Name});
-				// 					subActivitiesCodes.push(data[i].Code);
-				// 					// links.push({source: parentId, target: nodes.length - 1, value: data[i].Expenditure});
-				// 					testLinks.push({source: parentId, target: testNodes.length - 1, value: data[i].Expenditure});
-				// 				}
-				// 			}
-				// 		}
-				// 	}
-				// 	var dfd = $.getJSON("http://localhost:8080/district/1/subActivities/" + subActivitiesCodes[i] + "/expenses", addExpenses(i));
-				// 	expensesDfds.push(dfd);
-				// }
-
-
 				var expensesDfds = [];
-				for (var k = 0; k < subActivitiesCodes.length; k++) {
-					expensesDfds.push($.ajax({
-						url: "http://localhost:8080/district/1/subActivities/" + subActivitiesCodes[i].Code + "/expenses",
-						type: "GET",
-						dataType: "json",
-						success: function(data) {
+				for (var i = 0; i < subActivitiesCodes.length; i++) {
+					var addExpenses = function(parentId) {
+						return function(data) {
 							if (data) {
 								for (var i = 0; i < data.length; i++) {
-									nodes.push({name: data[i].Name});
+									testNodes.push({name: data[i].Name});
+									var expenditure = data[i].RestrictedExpenditure;
+
+									expenditure = parseFloat(expenditure);
+
+									if (expenditure === 0) {
+										expenditure = 1;
+									}
+									// links.push({source: parentId, target: nodes.length - 1, value: data[i].Expenditure});
+									testLinks.push({source: parentId, target: testNodes.length - 1, value: expenditure});
 								}
 							}
 						}
-					}));			
+					}
+					var dfd = $.getJSON("http://localhost:8080/district/1/subActivities/" + subActivitiesCodes[i] + "/expenses", addExpenses(i));
+					expensesDfds.push(dfd);
 				}
 				$.when.apply($, expensesDfds).then(function(data, textStatus, jqXhr){
-					console.log("NODES");
-					console.log(testNodes);
-					console.log("LINKS");
-					console.log(testLinks);
+					// console.log("NODES");
+					// console.log(testNodes);
+					// console.log("LINKS");
+					// console.log(testLinks);
+					// debugger
 				  var margin = {top: 1, right: 1, bottom: 6, left: 1};
 				  var width = 2000 - margin.left - margin.right;
-				  var height = 800 - margin.top - margin.bottom;
+				  var height = 15000 - margin.top - margin.bottom;
 				  var color = d3.scale.category20();
 					var svg = d3.select("#chart").append("svg")
 						.attr({
