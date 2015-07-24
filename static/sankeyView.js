@@ -84,7 +84,7 @@ $(document).ready(function() {
 					// console.log(testLinks);
 					// debugger
 				  var margin = {top: 1, right: 1, bottom: 6, left: 1};
-				  var width = 2000 - margin.left - margin.right;
+				  var width = 5000 - margin.left - margin.right;
 				  var height = 15000 - margin.top - margin.bottom;
 				  var color = d3.scale.category20();
 					var svg = d3.select("#chart").append("svg")

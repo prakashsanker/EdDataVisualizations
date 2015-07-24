@@ -121,6 +121,15 @@ d3.sankey = function() {
         nextNodes,
         x = 0;
 
+    // while(remainingNodes.length && x < nodes.length) {
+    //   nextNodes = [];
+    //   remainingNodes.forEach(function(node) {
+        
+
+    //   });
+
+    // }
+
     // Work from left to right.
     // Keep updating the breath (x-position) of nodes that are target of recently updated nodes.
     while (remainingNodes.length && x < nodes.length) {
