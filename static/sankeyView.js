@@ -163,7 +163,8 @@ $(document).ready(function() {
 						.append("title")
 						.text(function(d) {
 							return d.name;
-						});
+						})
+						.on("click", )
 
 					nodes.append("text")
 						.attr({
@@ -179,6 +180,17 @@ $(document).ready(function() {
 							return d.name;
 						});
 
+					function clicked(d) {
+						x.domain([d.x, d.x + d.dx]);
+						y.domain([d.y, 1]).range([d.y ? 20 : 0, height]);
+
+						rect.transition()
+							.duration(750)
+							.attr("x", function(d) { return x(d.x); })
+							.attr("y", function(d) { return y(d.y);})
+							.attr("width", function(d) { return x(d.x + d.dx) - x(d.x);})
+							.attr("height", function(d) { return y(d.y + dy.dy) - y(d.y); });
+					}
 				});
 			});
 
