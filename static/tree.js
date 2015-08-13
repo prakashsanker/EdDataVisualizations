@@ -40,7 +40,6 @@ $(document).ready(function() {
 						var child = {level: 3, name: data[i].Name, size: expenditure, children: []};
 						parent.children.push(child);
 						subActivitiesDfds.push($.getJSON("http://localhost:8080/district/1/subActivities/" + data[i].Code + "/expenses", addExpenses(child)));
-						// subActivitiesDfds.push(dfd);
 					}
 				}
 			}
@@ -73,6 +72,7 @@ $(document).ready(function() {
 				return d.size;});
 
 			var nodes = partition.nodes(root);
+			
 
 			var svg = d3.select("#chart").append("svg")
 				.attr("width", width)
@@ -83,16 +83,8 @@ $(document).ready(function() {
 				.enter().append("rect")
 				.attr("class", "node")
 			    .attr("x", function(d) { 
-			    	console.log("size");
-			    	console.log(d.size);
-			    	console.log("x(d.size)");
-			    	console.log(x(d.size));
 			    	return x(d.x); })
 			    .attr("y", function(d) { 
-			    	console.log("d.y");
-			    	console.log(d.y);
-			    	console.log("y(d.y)");
-			    	console.log(y(d.y));
 			    	return y(d.y); })
 			    .attr("width", function(d) { 
 			    	return x(d.dx); })
@@ -101,6 +93,16 @@ $(document).ready(function() {
 			    	return color(d.level); 
 			    })
 			    .on("click", clicked);
+
+			var labels = svg.selectAll(".label")
+				.data(nodes.filter(function(d) { return x(d.dx) > 6;}))
+				.enter().append("text")
+				.attr("class","label")
+				.attr("dy", ".35em")
+				.attr("transform", function(d) {
+					return "translate(" + x(d.x + d.dx/2) + "," + y(d.y + (d.dy/2)) + ") rotate(90)";
+				})
+				.text(function(d) {return d.name});
 
 			function clicked(d) {
 				x.domain([d.x, d.x + d.dx]);
