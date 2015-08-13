@@ -78,7 +78,7 @@ $(document).ready(function() {
 			var dummySVG = d3.select("#chart").append("svg");
 
 			dummySVG.selectAll('.label')
-				.data(nodes.filter(function(d) { return x(d.dx) > 6;}))
+				.data(nodes) 
 				.enter().append("text")
 				.attr("class","label")
 				.attr("dy", ".35em")
@@ -88,13 +88,33 @@ $(document).ready(function() {
 				.text(function(d) {return d.name})
 				.each(function(d,i){
 					labelMap[labelIndex] = this.getComputedTextLength();
-					var currentY = y(d.y) + 20  + this.getComputedTextLength()
+					var currentY = y(d.dy) + 20  + this.getComputedTextLength()
 					if ( currentY > lowestY) {
 						lowestY = currentY;
 					}
 				});
 
-				debugger
+				var rectIndex = 0;
+				var rectMap = {};
+				var rect = dummySVG.selectAll(".node")
+					.data(nodes)
+					.enter().append("rect")
+					.attr("class", "node")
+				    .attr("x", function(d) { 
+				    	return x(d.x); })
+				    .attr("y", function(d) { 
+				    	return y(d.y); })
+				    .attr("width", function(d) { 
+				    	return x(d.dx); })
+				    .attr("height", function(d) { 
+				    	return y(d.dy); })
+				    .each(function(d,i) {
+				    	rectMap[i] = y(d.y) + y(d.dy);
+				    	if (rectMap[i] > lowestY) {
+				    		lowestY = rectMap[i];
+				    	}
+				   	});
+
 
 				d3.select("#chart").empty();
 
@@ -109,8 +129,6 @@ $(document).ready(function() {
 				var color = d3.scale.category20();
 
 
-
-				var rectIndex = 0;
 				var rect = svg.selectAll(".node")
 					.data(nodes)
 					.enter().append("rect")
@@ -121,11 +139,22 @@ $(document).ready(function() {
 				    	return y(d.y); })
 				    .attr("width", function(d) { 
 				    	return x(d.dx); })
-				    .attr("height", function(d) { return y(d.dy); })
+				    .attr("height", function(d,i) { 
+				    	if (y(labelMap[i])  > y(d.dy)) {
+				    		debugger
+				    		return y(labelMap[i]);
+				    	} else {
+							return y(d.dy);
+				    	}})
 				    .style("fill", function(d) { 
 				    	return color(d.level); 
 				    })
 				    .on("click", clicked);
+
+
+
+
+
 
 			var labels = svg.selectAll(".label")
 				.data(nodes.filter(function(d) { return x(d.dx) > 6;}))
@@ -133,20 +162,20 @@ $(document).ready(function() {
 				.attr("class","label")
 				.attr("dy", ".35em")
 				.attr("transform", function(d) {
-					return "translate(" + x(d.x + d.dx/2) + "," + (y(d.y) + 20) + ") rotate(90)";
+					return "translate(" + x(d.x + d.dx/2) + "," + (y(d.y)) + ") rotate(90)";
 				})
-				.text(function(d) {return d.name})
-				.each(function(d, i) {
-					var that = this;
+				.text(function(d) {return d.name});
+				// .each(function(d, i) {
+				// 	var that = this;
 
-					var rect = rectLabelMapping[i];
-					var difference = (y(d.y) + 20  + this.getComputedTextLength()) - (rect.getBBox().y + rect.getBBox().height)
-						console.log(difference);
+				// 	var rect = rectLabelMapping[i];
+				// 	var difference = (y(d.y) + 20  + this.getComputedTextLength()) - (rect.getBBox().y + rect.getBBox().height)
+				// 		console.log(difference);
 
-					if(difference > 0) {
-						d3.select(rect).attr('height', y(d.dy + difference + 10));
-					}
-				});
+				// 	if(difference > 0) {
+				// 		d3.select(rect).attr('height', y(d.dy + difference + 10));
+				// 	}
+				// });
 
 				// var test = svg.selectAll(".label");
 
