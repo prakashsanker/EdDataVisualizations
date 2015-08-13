@@ -102,10 +102,7 @@ $(document).ready(function() {
 				    	if (rectMap[d.level] > lowestY) {
 				    		lowestY = rectMap[d.level];
 				    	}
-				   	})
-				   	 .style("fill", function(d) { 
-			 	    	return color(d.level); 
-				    });
+				   	});
 
 			var labels = dummySVG.selectAll(".label")
 				.data(nodes)
@@ -135,6 +132,8 @@ $(document).ready(function() {
 			
 				var svg = d3.select("#chart").append("svg").attr('width', width).attr('height', height);
 
+
+				debugger
 				var rect = svg.selectAll(".node")
 					.data(nodes)
 					.enter().append("rect")
@@ -154,22 +153,24 @@ $(document).ready(function() {
 				    	}
 				   	})
 				   	 .style("fill", function(d) { 
-			 	    	return color((d.children ? d : d.parent).name);; 
+				   	 	var test = (d.children ? d : d.parent).name;
+				   	 	console.log(test);
+			 	    	return color(Math.random());; 
 				    })
 				   	 .on("click", clicked);
 
 
 
-			var labels = svg.selectAll(".label")
-				.data(nodes.filter(function(d) { return x(d.dx) > 6; }))
-				.enter().append("text")
-				.attr("class","label")
-				.attr("dy", ".35em")
-				.attr("transform", function(d) {
-					return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
-				})
-				.text(function(d) {
-					return d.name});
+			// var labels = svg.selectAll(".label")
+			// 	.data(nodes.filter(function(d) { return x(d.dx) > 6; }))
+			// 	.enter().append("text")
+			// 	.attr("class","label")
+			// 	.attr("dy", ".35em")
+			// 	.attr("transform", function(d) {
+			// 		return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
+			// 	})
+			// 	.text(function(d) {
+			// 		return d.name});
 
 
 			function clicked(d) {
