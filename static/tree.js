@@ -59,40 +59,73 @@ $(document).ready(function() {
 
 
 		$.when.apply($, subActivitiesDfds).done(function() {
+			var labelIndex = 0;
+			var labelMap = {};
+			var lowestY = 0;
 			var width = 960,
 				height = 500;
 			var x = d3.scale.linear()
 				.range([0, width]);
 			var y = d3.scale.linear()
 				.range([0, height]);
-			var color = d3.scale.category20();
 
 			var partition = d3.layout.partition()
 				.value(function(d) { 
 				return d.size;});
 
 			var nodes = partition.nodes(root);
-			
 
-			var svg = d3.select("#chart").append("svg")
+			var dummySVG = d3.select("#chart").append("svg");
+
+			dummySVG.selectAll('.label')
+				.data(nodes.filter(function(d) { return x(d.dx) > 6;}))
+				.enter().append("text")
+				.attr("class","label")
+				.attr("dy", ".35em")
+				.attr("transform", function(d) {
+					return "translate(" + x(d.x + d.dx/2) + "," + (y(d.y) + 20) + ") rotate(90)";
+				})
+				.text(function(d) {return d.name})
+				.each(function(d,i){
+					labelMap[labelIndex] = this.getComputedTextLength();
+					var currentY = y(d.y) + 20  + this.getComputedTextLength()
+					if ( currentY > lowestY) {
+						lowestY = currentY;
+					}
+				});
+
+				debugger
+
+				d3.select("#chart").empty();
+
+				height = lowestY + 100;
+
+				y = d3.scale.linear().range([0, height]);
+
+				var svg = d3.select("#chart").append("svg")
 				.attr("width", width)
 				.attr("height", height);
 
-			var rect = svg.selectAll(".node")
-				.data(nodes)
-				.enter().append("rect")
-				.attr("class", "node")
-			    .attr("x", function(d) { 
-			    	return x(d.x); })
-			    .attr("y", function(d) { 
-			    	return y(d.y); })
-			    .attr("width", function(d) { 
-			    	return x(d.dx); })
-			    .attr("height", function(d) { return y(d.dy); })
-			    .style("fill", function(d) { 
-			    	return color(d.level); 
-			    })
-			    .on("click", clicked);
+				var color = d3.scale.category20();
+
+
+
+				var rectIndex = 0;
+				var rect = svg.selectAll(".node")
+					.data(nodes)
+					.enter().append("rect")
+					.attr("class", "node")
+				    .attr("x", function(d) { 
+				    	return x(d.x); })
+				    .attr("y", function(d) { 
+				    	return y(d.y); })
+				    .attr("width", function(d) { 
+				    	return x(d.dx); })
+				    .attr("height", function(d) { return y(d.dy); })
+				    .style("fill", function(d) { 
+				    	return color(d.level); 
+				    })
+				    .on("click", clicked);
 
 			var labels = svg.selectAll(".label")
 				.data(nodes.filter(function(d) { return x(d.dx) > 6;}))
@@ -100,9 +133,23 @@ $(document).ready(function() {
 				.attr("class","label")
 				.attr("dy", ".35em")
 				.attr("transform", function(d) {
-					return "translate(" + x(d.x + d.dx/2) + "," + y(d.y + (d.dy/2)) + ") rotate(90)";
+					return "translate(" + x(d.x + d.dx/2) + "," + (y(d.y) + 20) + ") rotate(90)";
 				})
-				.text(function(d) {return d.name});
+				.text(function(d) {return d.name})
+				.each(function(d, i) {
+					var that = this;
+
+					var rect = rectLabelMapping[i];
+					var difference = (y(d.y) + 20  + this.getComputedTextLength()) - (rect.getBBox().y + rect.getBBox().height)
+						console.log(difference);
+
+					if(difference > 0) {
+						d3.select(rect).attr('height', y(d.dy + difference + 10));
+					}
+				});
+
+				// var test = svg.selectAll(".label");
+
 
 			function clicked(d) {
 				x.domain([d.x, d.x + d.dx]);
