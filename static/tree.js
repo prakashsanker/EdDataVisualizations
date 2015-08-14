@@ -104,7 +104,13 @@ $(document).ready(function() {
 				   	 	var test = (d.children ? d : d.parent).name;
 			 	    	return color(Math.random());; 
 				    })
-				    .on("click", clicked);
+				    .on("click", clicked)
+				    .on("mouseover", function(){
+				    	d3.select(this).attr("class", "highlighted");
+				    })
+				    .on("mouseout", function(){
+				    	d3.select(this).classed("highlighted", false);
+				    });
 
 				var labels = cell
 					.append("foreignObject")
@@ -116,13 +122,6 @@ $(document).ready(function() {
 					.attr("class","label")
 					.text(function(d){
 						return d.name;
-					})
-					.each(function(d,i){
-						if (x(d.dx) < 10) {
-							$(this).hide();
-						} else {
-							$(this).show();
-						}
 					})
 					.attr("text-anchor", "middle");
 
@@ -139,7 +138,7 @@ $(document).ready(function() {
 				d3.selectAll(".foreignObject").transition().duration(750)
 					.attr("transform", function(d) {
 						return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
-				})
+				});
 			}
 		});
 	});
