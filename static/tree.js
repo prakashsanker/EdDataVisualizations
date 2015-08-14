@@ -76,64 +76,67 @@ $(document).ready(function() {
 			var nodes = partition.nodes(root);
 
 
-			var dummySVG = d3.select("#chart").append("svg").attr('width', width).attr('height', height);
+			// var dummySVG = d3.select("#chart").append("svg").attr('width', width).attr('height', height);
 
 				var color = d3.scale.category20();
 
 
 
-				var rectIndex = 0;
-				var rectMap = {};
-				var labelMap = {};
-				var rect = dummySVG.selectAll(".node")
-					.data(nodes)
-					.enter().append("rect")
-					.attr("class", "node")
-				    .attr("x", function(d) { 
-				    	return x(d.x); })
-				    .attr("y", function(d) { 
-				    	return y(d.y); })
-				    .attr("width", function(d) { 
-				    	return x(d.dx); })
-				    .attr("height", function(d) { 
-				    	return y(d.dy); })
-				    .each(function(d,i) {
-				    	rectMap[d.level] = y(d.y + d.dy);
-				    	if (rectMap[d.level] > lowestY) {
-				    		lowestY = rectMap[d.level];
-				    	}
-				   	});
+			// 	var rectIndex = 0;
+			// 	var rectMap = {};
+			// 	var labelMap = {};
+			// 	var rect = dummySVG.selectAll(".node")
+			// 		.data(nodes)
+			// 		.enter().append("rect")
+			// 		.attr("class", "node")
+			// 	    .attr("x", function(d) { 
+			// 	    	return x(d.x); })
+			// 	    .attr("y", function(d) { 
+			// 	    	return y(d.y); })
+			// 	    .attr("width", function(d) { 
+			// 	    	return x(d.dx); })
+			// 	    .attr("height", function(d) { 
+			// 	    	return y(d.dy); })
+			// 	    .each(function(d,i) {
+			// 	    	rectMap[d.level] = y(d.y + d.dy);
+			// 	    	if (rectMap[d.level] > lowestY) {
+			// 	    		lowestY = rectMap[d.level];
+			// 	    	}
+			// 	   	});
 
-			var labels = dummySVG.selectAll(".label")
-				.data(nodes)
-				.enter().append("text")
-				.attr("class","label")
-				.attr("dy", ".35em")
-				.attr("transform", function(d) {
-					return "translate(" + x(d.x + d.dx/2) + "," + (y(d.y)) + ") rotate(90)";
-				})
-				.text(function(d) {
-					return d.name})
-				.each(function(d,i){
-					var bbox = this.getBBox();
-					console.log("BBOX Y");
-					console.log(y(d.y));
-					labelMap[d.level] = y(d.y) +  bbox.width;
-					if (labelMap[d.level] > lowestY) {
-						lowestY = labelMap[d.level];
-					}
-				});
+			// var labels = dummySVG.selectAll(".label")
+			// 	.data(nodes)
+			// 	.enter().append("text")
+			// 	.attr("class","label")
+			// 	.attr("dy", ".35em")
+			// 	.attr("transform", function(d) {
+			// 		return "translate(" + x(d.x + d.dx/2) + "," + (y(d.y)) + ") rotate(90)";
+			// 	})
+			// 	.text(function(d) {
+			// 		return d.name})
+			// 	.each(function(d,i){
+			// 		var bbox = this.getBBox();
+			// 		console.log("BBOX Y");
+			// 		console.log(y(d.y));
+			// 		labelMap[d.level] = y(d.y) +  bbox.width;
+			// 		if (labelMap[d.level] > lowestY) {
+			// 			lowestY = labelMap[d.level];
+			// 		}
+			// 	});
 
-				d3.select('svg').remove();
+			// 	d3.select('svg').remove();
 
 				var y2 = d3.scale.linear().range([0, height]);
 			
+			
 				var svg = d3.select("#chart").append("svg").attr('width', width).attr('height', height);
 
-
-				var rect = svg.selectAll(".node")
+				var cell = svg.selectAll("g")
 					.data(nodes)
-					.enter().append("rect")
+					.enter().append("g")
+					.attr("class", "cell");
+
+				cell.append("rect")
 					.attr("class", "node")
 				    .attr("x", function(d) { 
 				    	return x(d.x); })
@@ -143,38 +146,76 @@ $(document).ready(function() {
 				    	return x(d.dx); })
 				    .attr("height", function(d) { 
 				    	return y2(d.dy); })
-				    .each(function(d,i) {
-				    	rectMap[d.level] = y2(d.y + d.dy);
-				    	if (rectMap[d.level] > lowestY) {
-				    		lowestY = rectMap[d.level];
-				    	}
-				   	})
-				   	 .style("fill", function(d) { 
+				   	.style("fill", function(d) { 
 				   	 	var test = (d.children ? d : d.parent).name;
 				   	 	console.log(test);
 			 	    	return color(Math.random());; 
 				    })
-				   	 .on("click", clicked);
+
+				cell.append("foreignObject")
+					.attr("class", "foreignObject")
+					.attr("transform", function(d) {
+						return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
+					})
+					.append("xhtml:body")
+					.attr("class","label")
+					.text(function(d){
+						return d.name;
+					})
+					.attr('display', function(d,i){
+						if (x(d.dx) <= 10) {
+							return "none";
+						} else {
+							return "initial";
+						}
+					})
+					.attr("text-anchor", "middle");
+
+
+			// 	var rect = svg.selectAll(".node")
+			// 		.data(nodes)
+			// 		.enter().append("rect")
+			// 		.attr("class", "node")
+			// 	    .attr("x", function(d) { 
+			// 	    	return x(d.x); })
+			// 	    .attr("y", function(d) { 
+			// 	    	return y2(d.y); })
+			// 	    .attr("width", function(d) { 
+			// 	    	return x(d.dx); })
+			// 	    .attr("height", function(d) { 
+			// 	    	return y2(d.dy); })
+			// 	    .each(function(d,i) {
+			// 	    	rectMap[d.level] = y2(d.y + d.dy);
+			// 	    	if (rectMap[d.level] > lowestY) {
+			// 	    		lowestY = rectMap[d.level];
+			// 	    	}
+			// 	   	})
+			// 	   	 .style("fill", function(d) { 
+			// 	   	 	var test = (d.children ? d : d.parent).name;
+			// 	   	 	console.log(test);
+			//  	    	return color(Math.random());; 
+			// 	    })
+			// 	   	 .on("click", clicked);
 
 
 
-			var labels = svg.selectAll(".label")
-				.data(nodes)
-				.enter().append("text")
-				.attr("class","label")
-				.attr("dy", ".35em")
-				.attr("transform", function(d) {
-					return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
-				})
-				.attr('display', function(d) {
-					if (x(d.dx) <= 10) {
-						return "none";
-					} else {
-						return "initial";
-					}
-				})
-				.text(function(d) {
-					return d.name});
+			// var labels = svg.selectAll(".label")
+			// 	.data(nodes)
+			// 	.enter().append("text")
+			// 	.attr("class","label")
+			// 	.attr("dy", ".35em")
+			// 	.attr("transform", function(d) {
+			// 		return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
+			// 	})
+			// 	.attr('display', function(d) {
+			// 		if (x(d.dx) <= 10) {
+			// 			return "none";
+			// 		} else {
+			// 			return "initial";
+			// 		}
+			// 	})
+			// 	.text(function(d) {
+			// 		return d.name});
 
 
 			function clicked(d) {
