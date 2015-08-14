@@ -133,7 +133,6 @@ $(document).ready(function() {
 				var svg = d3.select("#chart").append("svg").attr('width', width).attr('height', height);
 
 
-				debugger
 				var rect = svg.selectAll(".node")
 					.data(nodes)
 					.enter().append("rect")
@@ -161,27 +160,32 @@ $(document).ready(function() {
 
 
 
-			// var labels = svg.selectAll(".label")
-			// 	.data(nodes.filter(function(d) { return x(d.dx) > 6; }))
-			// 	.enter().append("text")
-			// 	.attr("class","label")
-			// 	.attr("dy", ".35em")
-			// 	.attr("transform", function(d) {
-			// 		return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
-			// 	})
-			// 	.text(function(d) {
-			// 		return d.name});
+			var labels = svg.selectAll(".label")
+				.data(nodes.filter(function(d) { return x(d.dx) > 6; }))
+				.enter().append("text")
+				.attr("class","label")
+				.attr("dy", ".35em")
+				.attr("transform", function(d) {
+					return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
+				})
+				.text(function(d) {
+					return d.name});
 
 
 			function clicked(d) {
 				x.domain([d.x, d.x + d.dx]);
-				y.domain([d.y, 1]).range([d.y ? 20 : 0, height]);
+				y2.domain([d.y, 1]).range([d.y ? 20 : 0, height]);
+				// d3.selectAll(".label").remove();
 				rect.transition()
 					.duration(750)
 					.attr("x", function(d) { return x(d.x); })
 					.attr("y", function(d) { return y2(d.y);})
 					.attr("width", function(d) { return x(d.x + d.dx) - x(d.x);})
-					.attr("height", function(d) { return y(d.y + d.dy) - y(d.y);});
+					.attr("height", function(d) { return y2(d.y + d.dy) - y2(d.y);});
+				labels.transition().duration(750)
+					.attr("transform", function(d) {
+						return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
+					});
 			}
 		});
 	});
