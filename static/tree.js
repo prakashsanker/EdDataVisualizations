@@ -136,7 +136,7 @@ $(document).ready(function() {
 					.enter().append("g")
 					.attr("class", "cell");
 
-				cell.append("rect")
+				var rect = cell.append("rect")
 					.attr("class", "node")
 				    .attr("x", function(d) { 
 				    	return x(d.x); })
@@ -148,11 +148,14 @@ $(document).ready(function() {
 				    	return y2(d.dy); })
 				   	.style("fill", function(d) { 
 				   	 	var test = (d.children ? d : d.parent).name;
-				   	 	console.log(test);
 			 	    	return color(Math.random());; 
 				    })
+				    .on("click", clicked);
 
-				cell.append("foreignObject")
+				var labels = cell.filter(function(d,i){
+						return x(d.dx) > 6;
+					})
+					.append("foreignObject")
 					.attr("class", "foreignObject")
 					.attr("transform", function(d) {
 						return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
@@ -170,52 +173,6 @@ $(document).ready(function() {
 						}
 					})
 					.attr("text-anchor", "middle");
-
-
-			// 	var rect = svg.selectAll(".node")
-			// 		.data(nodes)
-			// 		.enter().append("rect")
-			// 		.attr("class", "node")
-			// 	    .attr("x", function(d) { 
-			// 	    	return x(d.x); })
-			// 	    .attr("y", function(d) { 
-			// 	    	return y2(d.y); })
-			// 	    .attr("width", function(d) { 
-			// 	    	return x(d.dx); })
-			// 	    .attr("height", function(d) { 
-			// 	    	return y2(d.dy); })
-			// 	    .each(function(d,i) {
-			// 	    	rectMap[d.level] = y2(d.y + d.dy);
-			// 	    	if (rectMap[d.level] > lowestY) {
-			// 	    		lowestY = rectMap[d.level];
-			// 	    	}
-			// 	   	})
-			// 	   	 .style("fill", function(d) { 
-			// 	   	 	var test = (d.children ? d : d.parent).name;
-			// 	   	 	console.log(test);
-			//  	    	return color(Math.random());; 
-			// 	    })
-			// 	   	 .on("click", clicked);
-
-
-
-			// var labels = svg.selectAll(".label")
-			// 	.data(nodes)
-			// 	.enter().append("text")
-			// 	.attr("class","label")
-			// 	.attr("dy", ".35em")
-			// 	.attr("transform", function(d) {
-			// 		return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
-			// 	})
-			// 	.attr('display', function(d) {
-			// 		if (x(d.dx) <= 10) {
-			// 			return "none";
-			// 		} else {
-			// 			return "initial";
-			// 		}
-			// 	})
-			// 	.text(function(d) {
-			// 		return d.name});
 
 
 			function clicked(d) {
