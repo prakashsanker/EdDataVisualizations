@@ -124,8 +124,6 @@ $(document).ready(function() {
 					}
 				});
 
-				height = lowestY + 100;
-
 				d3.select('svg').remove();
 
 				var y2 = d3.scale.linear().range([0, height]);
@@ -161,12 +159,19 @@ $(document).ready(function() {
 
 
 			var labels = svg.selectAll(".label")
-				.data(nodes.filter(function(d) { return x(d.dx) > 6; }))
+				.data(nodes)
 				.enter().append("text")
 				.attr("class","label")
 				.attr("dy", ".35em")
 				.attr("transform", function(d) {
 					return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
+				})
+				.attr('display', function(d) {
+					if (x(d.dx) <= 10) {
+						return "none";
+					} else {
+						return "initial";
+					}
 				})
 				.text(function(d) {
 					return d.name});
@@ -175,7 +180,6 @@ $(document).ready(function() {
 			function clicked(d) {
 				x.domain([d.x, d.x + d.dx]);
 				y2.domain([d.y, 1]).range([d.y ? 20 : 0, height]);
-				// d3.selectAll(".label").remove();
 				rect.transition()
 					.duration(750)
 					.attr("x", function(d) { return x(d.x); })
@@ -185,7 +189,14 @@ $(document).ready(function() {
 				labels.transition().duration(750)
 					.attr("transform", function(d) {
 						return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
-					});
+				}).
+				attr("display", function(d,i) {
+					if(x(d.dx) <= 10) {
+						return "none";
+					} else {
+						return "initial";
+					}
+				});
 			}
 		});
 	});
