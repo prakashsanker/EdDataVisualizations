@@ -80,52 +80,6 @@ $(document).ready(function() {
 
 				var color = d3.scale.category20();
 
-
-
-			// 	var rectIndex = 0;
-			// 	var rectMap = {};
-			// 	var labelMap = {};
-			// 	var rect = dummySVG.selectAll(".node")
-			// 		.data(nodes)
-			// 		.enter().append("rect")
-			// 		.attr("class", "node")
-			// 	    .attr("x", function(d) { 
-			// 	    	return x(d.x); })
-			// 	    .attr("y", function(d) { 
-			// 	    	return y(d.y); })
-			// 	    .attr("width", function(d) { 
-			// 	    	return x(d.dx); })
-			// 	    .attr("height", function(d) { 
-			// 	    	return y(d.dy); })
-			// 	    .each(function(d,i) {
-			// 	    	rectMap[d.level] = y(d.y + d.dy);
-			// 	    	if (rectMap[d.level] > lowestY) {
-			// 	    		lowestY = rectMap[d.level];
-			// 	    	}
-			// 	   	});
-
-			// var labels = dummySVG.selectAll(".label")
-			// 	.data(nodes)
-			// 	.enter().append("text")
-			// 	.attr("class","label")
-			// 	.attr("dy", ".35em")
-			// 	.attr("transform", function(d) {
-			// 		return "translate(" + x(d.x + d.dx/2) + "," + (y(d.y)) + ") rotate(90)";
-			// 	})
-			// 	.text(function(d) {
-			// 		return d.name})
-			// 	.each(function(d,i){
-			// 		var bbox = this.getBBox();
-			// 		console.log("BBOX Y");
-			// 		console.log(y(d.y));
-			// 		labelMap[d.level] = y(d.y) +  bbox.width;
-			// 		if (labelMap[d.level] > lowestY) {
-			// 			lowestY = labelMap[d.level];
-			// 		}
-			// 	});
-
-			// 	d3.select('svg').remove();
-
 				var y2 = d3.scale.linear().range([0, height]);
 			
 			
@@ -152,9 +106,7 @@ $(document).ready(function() {
 				    })
 				    .on("click", clicked);
 
-				var labels = cell.filter(function(d,i){
-						return x(d.dx) > 6;
-					})
+				var labels = cell
 					.append("foreignObject")
 					.attr("class", "foreignObject")
 					.attr("transform", function(d) {
@@ -165,11 +117,11 @@ $(document).ready(function() {
 					.text(function(d){
 						return d.name;
 					})
-					.attr('display', function(d,i){
-						if (x(d.dx) <= 10) {
-							return "none";
+					.each(function(d,i){
+						if (x(d.dx) < 10) {
+							$(this).hide();
 						} else {
-							return "initial";
+							$(this).show();
 						}
 					})
 					.attr("text-anchor", "middle");
@@ -184,17 +136,10 @@ $(document).ready(function() {
 					.attr("y", function(d) { return y2(d.y);})
 					.attr("width", function(d) { return x(d.x + d.dx) - x(d.x);})
 					.attr("height", function(d) { return y2(d.y + d.dy) - y2(d.y);});
-				labels.transition().duration(750)
+				d3.selectAll(".foreignObject").transition().duration(750)
 					.attr("transform", function(d) {
 						return "translate(" + x(d.x + d.dx/2) + "," + (y2(d.y)) + ") rotate(90)";
-				}).
-				attr("display", function(d,i) {
-					if(x(d.dx) <= 10) {
-						return "none";
-					} else {
-						return "initial";
-					}
-				});
+				})
 			}
 		});
 	});
