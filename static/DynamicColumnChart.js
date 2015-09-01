@@ -1,4 +1,4 @@
-Backbone.View.extend({
+BaseView.extend({
 	className: 'dynamic-bar-chart',
 
 	initialize: function(options) {
@@ -8,7 +8,6 @@ Backbone.View.extend({
 	},
 
 	render: function() {
-		
 		return this;
 	}
 });
