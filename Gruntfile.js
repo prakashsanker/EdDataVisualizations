@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 				expand: true,
 				src: ['scripts/**/*.es6.js'],
 				ext: '.js',
-				dest: 'scripts'
+				dest: 'static'
 			}
 		},
 		watch: {
