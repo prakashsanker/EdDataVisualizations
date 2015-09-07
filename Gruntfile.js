@@ -15,10 +15,14 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
+			files: ['**/*'],
+			options: {
+				livereload: true
+			},
 			babel: {
 				files: ['scripts/**/*.es6.js'],
 				tasks: 'babel'
-			}
+			},
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-watch');
