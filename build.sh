@@ -3,6 +3,8 @@
 echo "Cleaning up previous processes"
 eval killall -9 grunt
 eval killall -9 go
+echo "Running npm install to pull dependencies"
+eval npm install --save
 echo "Building Karna"
 eval grunt watch &
 cd server
