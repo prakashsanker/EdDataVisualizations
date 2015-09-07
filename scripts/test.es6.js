@@ -18,3 +18,4 @@ class Developer extends Person {                        // The 'extends' keyword
 }
 
 let me = new Developer("James", 23, "ES5", "ES6");     // Block scoping hello
+console.log("HELLO WORLD");

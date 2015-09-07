@@ -70,4 +70,5 @@ var Developer = (function (_Person) {
 })(Person);
 
 var me = new Developer("James", 23, "ES5", "ES6"); // Block scoping hello
+console.log("HELLO WORLD");
 //# sourceMappingURL=test.js.map
