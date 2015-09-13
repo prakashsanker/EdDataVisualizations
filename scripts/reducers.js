@@ -37,4 +37,8 @@ function districtsByState(state = {}, action) {
 	}
 }
 
+const rootReducer = combineReducers({
+	districtsByState
+});
 
+export default rootReducer;
