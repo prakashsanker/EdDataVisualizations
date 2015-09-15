@@ -2,6 +2,21 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 
 	grunt.initConfig({
+		browserify: {
+			dist: {
+				options: {
+					transform: [
+						["babelify", {
+							loose: "all"
+						}]
+					]
+				},
+				files: {
+					src: ['scripts/**/*.es6.js'],
+					ext: '.js',
+					dest: 'static'				}
+			}
+		},
 		babel: {
 			options: {
 				sourceMap: true,
@@ -24,7 +39,7 @@ module.exports = function(grunt) {
 			babel: {
 				expand: true,
 				files: ['scripts/**/*.es6.js'],
-				tasks: 'babel'
+				tasks: ['browserify']
 			},
 		}
 	});
