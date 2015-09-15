@@ -34,15 +34,17 @@ export function fetchDistricts(geoState) {
 		var demographiesDfd = [];
 		$.when(districtsDfd).then(function(data, textStatus, jqXhr){
 			if (data) {
-				_.each(data, datum => 
-					var id = datum.id;
-					demographiesDfd.push($.getJSON("http://localhost:8080/district/${id}/demography"));
+				_.each(data, datum => { 
+						let id = datum.id;
+						demographiesDfd.push($.getJSON("http://localhost:8080/district/${id}/demography"));
+					}
 				);
 			}
 		});
-		$.when(...demographiesDfd).done(result =>
-			//so I have demographic data right now. 
-			dispatch(receiveDistricts(geoState, result));
+		$.when(...demographiesDfd).done(result => {
+				//so I have demographic data right now. 
+				dispatch(receiveDistricts(geoState, result));
+			}
 		);
 	}
 }

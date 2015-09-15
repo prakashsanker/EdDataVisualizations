@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Leveraging Prabha to show visualizations using a modern stack of Redux/React/ES6/Go",
   "devDependencies": {
+    "requirejs": "~2.1.20",
     "grunt": "~0.4.5",
     "redux": "~2.0.0",
     "react": "~0.13.3",

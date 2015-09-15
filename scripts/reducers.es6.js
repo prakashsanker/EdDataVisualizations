@@ -14,7 +14,7 @@ function districts(state = {
 				isFetching: true,
 				didInvalidate: false
 			});
-		case: RECEIVE_DISTRICTS:
+		case RECEIVE_DISTRICTS:
 		return Object.assign({}, state, {
 			isFetching: false,
 			didInvalidate: false,

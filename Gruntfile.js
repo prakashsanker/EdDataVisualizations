@@ -15,11 +15,15 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: ['static/*'],
+			files: ['static/**'],
 			options: {
-				livereload: true
+				livereload: true,
+				sourcemap: true,
+				stage: 0,
+				atBegin: true
 			},
 			babel: {
+				expand: true,
 				files: ['scripts/**/*.es6.js'],
 				tasks: 'babel'
 			},
