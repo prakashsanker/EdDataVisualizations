@@ -19,8 +19,7 @@ module.exports = function(grunt) {
 			options: {
 				livereload: true,
 				sourcemap: true,
-				stage: 0,
-				atBegin: true
+				stage: 0
 			},
 			babel: {
 				expand: true,
