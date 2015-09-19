@@ -12,36 +12,18 @@ module.exports = function(grunt) {
 					]
 				},
 				files: {
-					src: ['scripts/**/*.es6.js'],
-					ext: '.js',
-					dest: 'static'				}
-			}
-		},
-		babel: {
-			options: {
-				sourceMap: true,
-				stage: 0
-			},
-			files: {
-				expand: true,
-				src: ['scripts/**/*.es6.js'],
-				ext: '.js',
-				dest: 'static'
+					"./static/dist/dest.js": ['static/scripts/**/*.es6.js']
+				}
 			}
 		},
 		watch: {
-			files: ['static/**'],
-			options: {
-				livereload: true,
-				sourcemap: true,
-				stage: 0
-			},
-			babel: {
-				expand: true,
-				files: ['scripts/**/*.es6.js'],
-				tasks: ['browserify']
-			},
+			scripts: {
+				files: ["./scripts/*.es6.js"],
+				tasks: ["browserify"]
+			}
 		}
 	});
+	grunt.loadNpmTasks("grunt-browserify");
 	grunt.loadNpmTasks('grunt-contrib-watch');
-}
+    grunt.registerTask("default", ["watch"]);
+	grunt.registerTask("build", ["browserify"]);}
