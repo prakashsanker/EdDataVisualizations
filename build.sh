@@ -7,7 +7,7 @@ eval killall -9 go
 echo "Running npm install to pull dependencies"
 eval npm install --save
 echo "Building Karna"
-eval grunt watch &
+eval grunt default &
 cd server
 echo "Running go server"
 eval go run *.go &

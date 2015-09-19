@@ -3,6 +3,11 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		browserify: {
+			options: {
+				browserifyOptions: {
+					debug:true
+				}
+			},
 			dist: {
 				options: {
 					transform: [
