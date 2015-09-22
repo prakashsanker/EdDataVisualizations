@@ -15,6 +15,7 @@ export function requestDistricts(geoState) {
 export const RECEIVE_DISTRICTS = 'RECEIVE_DISTRICTS';
 
 export function receiveDistricts(geoState, json) {
+	console.log("in receive");
 	console.log(json);
 	return {
 		type: RECEIVE_DISTRICTS,
@@ -28,36 +29,12 @@ export function fetchDistricts(geoState) {
 
 	return function (dispatch) {
 		dispatch(requestDistricts(geoState));
-		var districtsDfd = $.ajax({
-			url: "http://localhost:8100/districts/",
-			type: "GET",
-			dataType: "jsonp"
-		});
-		var demographiesDfd = [];
-
-		return fetch(`https://localhost:8100/districts/`)
-			.then(response => {console.log(response);})
+		return fetch(`http://localhost:8100/districts/`)
+	        .then(response => response.json())
 			.then(json => {
 				console.log("json");
+				console.log(json);
 			});
-		// $.when(districtsDfd).then(function(data, textStatus, jqXhr){
-		// 	console.log("first data");
-		// 	console.log(data);
-		// 	if (data) {
-		// 		_.each(data, datum => { 
-		// 				let id = datum.id;
-		// 				demographiesDfd.push($.getJSON("http://localhost:8100/district/${id}/demography"));
-		// 			}
-		// 		);
-		// 		console.log("demographies dfd");
-		// 		console.log(demographiesDfd);
-		// 		$.when(...demographiesDfd).done(result => {
-		// 				//so I have demographic data right now. 
-		// 				dispatch(receiveDistricts(geoState, result));
-		// 			}
-		// 		);
-		// 	}
-		// });
 	}
 }
 

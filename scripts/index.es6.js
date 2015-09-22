@@ -20,5 +20,9 @@ const createStoreWithMiddleware = applyMiddleware(
 const store = createStoreWithMiddleware(rootReducer);
 
 store.dispatch(fetchDistricts('California')).then(() =>
-	{console.log(store.getState());}
+	{
+		console.log("after then");
+		console.log(store.getState());
+
+	}
 );
