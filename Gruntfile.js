@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 					]
 				},
 				files: {
-					"./static/dist/dest.js": ['static/scripts/**/*.es6.js']
+					"./static/dist/dest.js": ['./scripts/index.es6.js']
 				}
 			}
 		},

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import {
 	RECEIVE_DISTRICTS, REQUEST_DISTRICTS
-} from 'actions';
+} from './actions.es6.js';
 
 function districts(state = {
 	isFetching: false,
