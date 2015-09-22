@@ -3,6 +3,21 @@
  */
 import fetch from 'isomorphic-fetch';
 
+export const REQUEST_DEMOGRAPHIES = 'REQUEST_DEMOGRAPHIES';
+
+export function requestDemographies(geoState) {
+	return {
+		type: REQUEST_DEMOGRAPHIES,
+		geoState
+	}
+};
+
+export const RECEIVE_DEMOGRAPHIES = 'RECEIVE_DEMOGRAPHIES';
+
+export function receiveDemographies(geoState, json) {
+	//go through each district and add school data
+};
+
 export const REQUEST_DISTRICTS = 'REQUEST_DISTRICTS';
 
 export function requestDistricts(geoState) {
@@ -21,7 +36,7 @@ export function receiveDistricts(geoState, json) {
 		type: RECEIVE_DISTRICTS,
 		geoState,
 		receivedAt: Date.now(),
-		districts: json.data.districts.map(district => district.data)
+		districts: json
 	}
 }
 
@@ -32,8 +47,7 @@ export function fetchDistricts(geoState) {
 		return fetch(`http://localhost:8100/districts/`)
 	        .then(response => response.json())
 			.then(json => {
-				console.log("json");
-				console.log(json);
+				dispatch(receiveDistricts(geoState, json))
 			});
 	}
 }

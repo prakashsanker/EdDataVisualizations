@@ -15,11 +15,20 @@ function districts(state = {
 				didInvalidate: false
 			});
 		case RECEIVE_DISTRICTS:
-		return Object.assign({}, state, {
-			isFetching: false,
-			didInvalidate: false,
-			items: action.districts
-		});
+			return Object.assign({}, state, {
+				isFetching: false,
+				didInvalidate: false,
+				items: action.districts
+			});
+		case REQUEST_DEMOGRAPHIES:
+			return Object.assign({}, state, {
+				isFetching: true
+			});
+		case RECEIVE_DEMOGRAPHIES:
+			return Object.assign({}, state, {
+				isFetching: false,
+				items: action.districts
+			});
 		default:
 			return state;
 	}
