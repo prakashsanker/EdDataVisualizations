@@ -1,3 +1,4 @@
+import 'babel-core/polyfill';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
@@ -11,8 +12,6 @@ const logger = createLogger({
 	predicate: (getState, action) => {action.type; }
 });
 
-console.log("HELLO WORLD");
-
 const createStoreWithMiddleware = applyMiddleware(
 	thunkMiddleware,
 	logger
@@ -23,5 +22,3 @@ const store = createStoreWithMiddleware(rootReducer);
 store.dispatch(fetchDistricts('California')).then(() =>
 	{console.log(store.getState());}
 );
-
-console.log("Hello world");
