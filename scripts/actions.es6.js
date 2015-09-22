@@ -3,19 +3,28 @@
  */
 import fetch from 'isomorphic-fetch';
 
-export const REQUEST_DEMOGRAPHIES = 'REQUEST_DEMOGRAPHIES';
+export const REQUEST_SCHOOLS = 'REQUEST_SCHOOLS';
 
-export function requestDemographies(geoState) {
+export function requestSchools(geoState) {
 	return {
-		type: REQUEST_DEMOGRAPHIES,
+		type: REQUEST_SCHOOLS,
 		geoState
 	}
-};
+}
 
-export const RECEIVE_DEMOGRAPHIES = 'RECEIVE_DEMOGRAPHIES';
+export const RECEIVE_SCHOOLS = 'RECEIVE_SCHOOLS';
 
-export function receiveDemographies(geoState, json) {
-	//go through each district and add school data
+export function receiveSchools(district) {
+	//append this to district schools list
+	return {
+		type: RECEIVE_SCHOOLS,
+		geoState,
+		receivedAt: Date.now()
+	};
+}
+
+export function fetchSchools(district) {
+
 };
 
 export const REQUEST_DISTRICTS = 'REQUEST_DISTRICTS';

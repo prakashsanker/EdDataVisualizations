@@ -20,14 +20,20 @@ function districts(state = {
 				didInvalidate: false,
 				items: action.districts
 			});
-		case REQUEST_DEMOGRAPHIES:
+		default:
+			return state;
+	}
+}
+
+function schoolsByDistrict(state, action) {
+	switch(action.type){
+		case REQUEST_SCHOOLS:
 			return Object.assign({}, state, {
-				isFetching: true
+
 			});
-		case RECEIVE_DEMOGRAPHIES:
+		case RECEIVE_SCHOOLS:
 			return Object.assign({}, state, {
-				isFetching: false,
-				items: action.districts
+				
 			});
 		default:
 			return state;

@@ -21,6 +21,6 @@ const store = createStoreWithMiddleware(rootReducer);
 
 store.dispatch(fetchDistricts('California')).then(() =>
 	{
-		store.dispatch(fetchDemographies('California'));
+		store.dispatch(fetchSchools('California'));
 	}
 );
