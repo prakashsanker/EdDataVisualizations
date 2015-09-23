@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import {
-	RECEIVE_DISTRICTS, REQUEST_DISTRICTS
+	RECEIVE_DISTRICTS, REQUEST_DISTRICTS, REQUEST_SCHOOLS, RECEIVE_SCHOOLS
 } from './actions.es6.js';
 
 function districts(state = {
@@ -25,19 +25,18 @@ function districts(state = {
 	}
 }
 
-function schoolsByDistrict(state, action) {
+function schoolsByDistrict(state = [], action) {
 	switch(action.type){
 		case REQUEST_SCHOOLS:
-			return Object.assign({}, state, {
-
-			});
+			//go through, find the right district
+			
 		case RECEIVE_SCHOOLS:
-			return Object.assign({}, state, {
-				
-			});
 		default:
 			return state;
 	}
+
+	debugger
+	return state;
 }
 
 function districtsByState(state = {}, action) {
@@ -53,7 +52,8 @@ function districtsByState(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-	districtsByState
+	districtsByState,
+	schoolsByDistrict
 });
 
 export default rootReducer;

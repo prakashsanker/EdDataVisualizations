@@ -2,7 +2,7 @@ import 'babel-core/polyfill';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
-import { fetchDistricts } from './actions.es6.js';
+import { fetchDistricts, fetchSchools } from './actions.es6.js';
 import rootReducer from './reducers.es6.js';
 
 
@@ -19,8 +19,9 @@ const createStoreWithMiddleware = applyMiddleware(
 
 const store = createStoreWithMiddleware(rootReducer);
 
-store.dispatch(fetchDistricts('California')).then(() =>
+store.dispatch(fetchDistricts('California')).then(state =>
 	{
+		debugger
 		store.dispatch(fetchSchools('California'));
 	}
 );

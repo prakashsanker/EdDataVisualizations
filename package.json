@@ -17,6 +17,7 @@
     "babelify": "^6.1.0",
     "grunt-browserify": "^3.8.0",
     "isomorphic-fetch": "^2.1.1",
-    "babel-core": "^5.8.25"
+    "babel-core": "^5.8.25",
+    "normalizr": "^1.0.0"
   }
 }

@@ -5,26 +5,28 @@ import fetch from 'isomorphic-fetch';
 
 export const REQUEST_SCHOOLS = 'REQUEST_SCHOOLS';
 
-export function requestSchools(geoState) {
+export function requestSchools(districtId) {
 	return {
 		type: REQUEST_SCHOOLS,
-		geoState
+		districtId
 	}
 }
 
 export const RECEIVE_SCHOOLS = 'RECEIVE_SCHOOLS';
 
-export function receiveSchools(district) {
+export function receiveSchools(districtId) {
 	//append this to district schools list
 	return {
 		type: RECEIVE_SCHOOLS,
-		geoState,
+		districtId,
 		receivedAt: Date.now()
 	};
 }
 
 export function fetchSchools(district) {
-
+	return function (dispatch) {
+		dispatch(requestSchools(districts));
+	};
 };
 
 export const REQUEST_DISTRICTS = 'REQUEST_DISTRICTS';
