@@ -21,7 +21,9 @@ const store = createStoreWithMiddleware(rootReducer);
 
 store.dispatch(fetchDistricts('California')).then(state =>
 	{
-		debugger
-		store.dispatch(fetchSchools('California'));
+		var districts = store.getState().districtsByState['California'].districts;
+		for(var i = 0; i < districts.length; i++) {
+			store.dispatch(fetchSchools(districts[i].id));
+		}
 	}
 );
