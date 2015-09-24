@@ -17,14 +17,6 @@ function districts(state = {
 				didInvalidate: false
 			});
 		case RECEIVE_DISTRICTS:
-			// var districts = {};
-			// for(let district of json) {
-			// 	districts[district.Id] = district;
-			// 	districts[district.Id].schools = [];
-			// }
-		    // var response = normalize(action.districts, {
-		    //   schools: arrayOf(school)
-		    // });
 			return Object.assign({}, state, {
 				isFetching: false,
 				didInvalidate: false,

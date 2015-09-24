@@ -47,7 +47,6 @@ export function requestDistricts(geoState) {
 export const RECEIVE_DISTRICTS = 'RECEIVE_DISTRICTS';
 
 export function receiveDistricts(geoState, json) {
-
 	return {
 		type: RECEIVE_DISTRICTS,
 		geoState,
