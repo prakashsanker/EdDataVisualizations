@@ -36,7 +36,8 @@ function schoolsByDistrict(state = [], action) {
 				}
 			});
 		case RECEIVE_SCHOOLS:
-			var toCopy = Object.assign({}, action.district, {
+			var normalizedDistrict = normalize(action.district, district);
+			var toCopy = Object.assign({}, normalizedDistrict, {
 				isFetching: true
 			});
 			return Object.assign({}, state, {
