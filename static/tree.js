@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var root = {level: 1, name: "San Francisco Budget", children: []};
 	var activitiesDfD =  $.ajax({
-		url: "http://localhost:8080/district/1/activities",
+		url: "http://localhost:8100/district/1/activities",
 		type: "GET",
 		dataType: "json"
 	});
@@ -19,9 +19,9 @@ $(document).ready(function() {
 			return function(data) {
 				if (data) {
 					for (var i = 0; i < data.length; i++) {
-						var expenditure = data[i].RestrictedExpenditure;
+						var expenditure = data[i].restrictedExpenditure;
 						expenditure = parseFloat(expenditure);
-						var child = {level: 4, name: data[i].Name, size: expenditure, children: []};
+						var child = {level: 4, name: data[i].name, size: expenditure, children: []};
 						// parent.children.push(child);
 						counter++;
 					}
@@ -32,27 +32,27 @@ $(document).ready(function() {
 			return function(data) {
 				if (data) {
 					for (var i = 0; i < data.length; i++) {
-						var expenditure = data[i].Expenditure;
+						var expenditure = data[i].expenditure;
 						expenditure = parseFloat(expenditure);
 						if (expenditure < 0) {
 							expenditure = -expenditure;
 						}
-						var child = {level: 3, name: data[i].Name, size: expenditure, children: []};
+
+						var child = {level: 3, name: data[i].name, size: expenditure, children: []};
 						parent.children.push(child);
-						subActivitiesDfds.push($.getJSON("http://localhost:8080/district/1/subActivities/" + data[i].Code + "/expenses", addExpenses(child)));
+						subActivitiesDfds.push($.getJSON("http://localhost:8100/district/1/subActivities/" + data[i].code + "/expenses", addExpenses(child)));
 					}
 				}
 			}
 		}
 
 		for (var i = 0; i < data.length; i++) {
-			var expenditure = data[i].Expenditure;
+			var expenditure = data[i].expenditure;
 			expenditure = parseFloat(expenditure);
 			total += expenditure;
-			var child = {level: 2, name: data[i].Name, size: expenditure, children: []};
+			var child = {level: 2, name: data[i].name, size: expenditure, children: []};
 			root.children.push(child);
-
-			subActivitiesDfds.push($.getJSON("http://localhost:8080/district/1/activities/" + data[i].Code + "/subActivities", addSubActivities(child)));
+			subActivitiesDfds.push($.getJSON("http://localhost:8100/district/1/activities/" + data[i].code + "/subActivities", addSubActivities(child)));
 			// subActivitiesDfds.push(dfd);
 		}
 		root.size = total;

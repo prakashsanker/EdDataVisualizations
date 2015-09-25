@@ -6682,7 +6682,6 @@ var store = createStoreWithMiddleware(_reducersEs6Js2['default']);
 
 store.dispatch(_actionsEs6Js.fetchDistricts('California')).then(function (state) {
 	var districts = store.getState().districtsByState['California'].districts;
-	debugger;
 	for (var i = 0; i < districts.length; i++) {
 		store.dispatch(_actionsEs6Js.fetchSchools(districts[i].id));
 	}

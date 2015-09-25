@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Bar from './components/Bar.es6.js';
+import Chart from './components/Chart.es6.js';
 
 export default class App extends Component {
 	getDefaultProps() {
@@ -20,4 +22,8 @@ export default class App extends Component {
 			</div>
 		)
 	}
-};
+}
+
+App.propTypes = {
+	
+}

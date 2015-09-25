@@ -5,8 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { fetchDistricts, fetchSchools } from './actions.es6.js';
 import rootReducer from './reducers.es6.js';
 import App from './components/App.es6.js';
-import { Bar, Rect } from './components/Bar.es6.js';
-import Chart from './components/Chart.es6.js';
+
 
 
 
