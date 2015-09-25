@@ -7,8 +7,6 @@ import rootReducer from './reducers.es6.js';
 import App from './components/App.es6.js';
 
 
-
-
 const logger = createLogger({
 	level: 'info',
 	collapsed: true,
@@ -40,3 +38,7 @@ React.render(
 	</Provider>,
 	rootElement
 );
+
+function select(state) {
+	return state;
+}

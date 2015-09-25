@@ -121,7 +121,7 @@ $(document).ready(function() {
 					.append("xhtml:body")
 					.attr("class","label")
 					.text(function(d){
-						return d.name;
+						return d.name + "  $" + d.value;
 					})
 					.attr("text-anchor", "middle");
 
