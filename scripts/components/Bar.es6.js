@@ -40,13 +40,13 @@ export class Bar extends Component {
 					key={i} />
 			)
 		});
-	}
 	return (
 		<g>{bars}</g>
 	);
+	}
 };
 
-export class Rect extends Component {
+class Rect extends Component {
 	getDefaultProps() {
 		return {
 			width: 0,

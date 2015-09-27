@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Bar from './components/Bar.es6.js';
-import Chart from './components/Chart.es6.js';
+import Bar from './Bar.es6.js';
+import Chart from './Chart.es6.js';
+import { connect } from 'react-redux';
+import { thunk } from 'redux-thunk';
 
 export default class App extends Component {
 	getDefaultProps() {
@@ -11,6 +13,7 @@ export default class App extends Component {
 	}
 
 	render() {
+		debugger
 		return (
 			<div class="app">
 				<Chart width={this.props.width}
@@ -22,4 +25,5 @@ export default class App extends Component {
 			</div>
 		)
 	}
-}
+};
+

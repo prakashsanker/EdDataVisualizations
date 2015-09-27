@@ -1,11 +1,10 @@
 import 'babel-core/polyfill';
-import { thunkMiddleware, Provider } from 'redux-thunk';
+import { thunkMiddleware } from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import { fetchDistricts, fetchSchools } from './actions.es6.js';
 import rootReducer from './reducers.es6.js';
-import App from './components/App.es6.js';
-
+// import App from './components/App.es6.js';
 
 const logger = createLogger({
 	level: 'info',
@@ -13,6 +12,7 @@ const logger = createLogger({
 	predicate: (getState, action) => {action.type; }
 });
 
+debugger
 const createStoreWithMiddleware = applyMiddleware(
 	thunkMiddleware,
 	logger
@@ -32,13 +32,9 @@ store.dispatch(fetchDistricts('California')).then(state =>
 
 let rootElement = document.getElementById('root');
 
-React.render(
-	<Provider store={store}>
-		{() => <App /> }
-	</Provider>,
-	rootElement
-);
-
-function select(state) {
-	return state;
-}
+// React.render(
+// 	<Provider store={store}>
+// 		{() => <App /> }
+// 	</Provider>,
+// 	rootElement
+// );
