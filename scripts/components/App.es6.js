@@ -1,11 +1,10 @@
 import React from 'react';
-import Component from 'react';
-import Bar from './Bar.es6.js';
-import Chart from './Chart.es6.js';
+import { Bar } from './Bar.es6.js';
+import { Chart } from './Chart.es6.js';
 import { connect } from 'react-redux';
-export default class App extends Component {
+
+class App extends React.Component {
 	render() {
-		debugger
 		return (
 			<div class="app">
 				<Chart width={this.props.width}
@@ -19,7 +18,6 @@ export default class App extends Component {
 		);
 	}
 };
-
 function select(state) {
 	return state;
 }

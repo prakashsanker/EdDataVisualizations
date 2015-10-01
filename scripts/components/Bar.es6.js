@@ -1,7 +1,6 @@
 import React from 'react';
-import Component from 'react';
 
-export class Bar extends Component {
+export class Bar extends React.Component {
 	getDefaultProps() {
 		return {
 			data: []
@@ -51,7 +50,7 @@ export class Bar extends Component {
 	}
 };
 
-class Rect extends Component {
+class Rect extends React.Component {
 	getDefaultProps() {
 		return {
 			width: 0,
