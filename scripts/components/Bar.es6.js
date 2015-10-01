@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Component from 'react';
 
 export class Bar extends Component {
 	getDefaultProps() {
@@ -8,10 +9,12 @@ export class Bar extends Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
+		debugger
 		return this.props.data !== nextProps.data;
 	}
 
 	render() {
+		debugger
 		let props = this.props;
 		let data = props.data.map((d) =>
 			{
@@ -37,9 +40,11 @@ export class Bar extends Component {
 					width={width}
 					x={x}
 					y={y}
-					key={i} />
-			)
+					key={i}>
+				</Rect>
+			);
 		});
+
 	return (
 		<g>{bars}</g>
 	);

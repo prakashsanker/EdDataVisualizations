@@ -5,7 +5,8 @@ import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import { fetchDistricts, fetchSchools } from './actions.es6.js';
 import rootReducer from './reducers.es6.js';
-
+import App from './components/App.es6.js';
+import React from 'react';
 
 const logger = createLogger({
 	level: 'info',
@@ -23,8 +24,25 @@ const store = createStoreWithMiddleware(rootReducer);
 store.dispatch(fetchDistricts('California')).then(state =>
 	{
 		var districts = store.getState().districtsByState['California'].districts;
+		var schoolsRequestPromises = [];
 		for(var i = 0; i < districts.length; i++) {
-			store.dispatch(fetchSchools(districts[i].id));
+			schoolsRequestPromises.push(store.dispatch(fetchSchools(districts[i].id)));
 		}
+		Promise.all(schoolsRequestPromises).then(() =>
+			{
+				let rootElement = document.getElementById('root');
+				return React.render(
+				  // The child must be wrapped in a function
+				  // to work around an issue in React 0.13.
+				  <Provider store={store}>
+				    {() => <App />}
+				  </Provider>,
+				  rootElement
+				 );
+			})
+			.catch((a) => {
+				debugger
+			});
+		
 	}
 );

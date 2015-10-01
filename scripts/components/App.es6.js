@@ -1,17 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Component from 'react';
 import Bar from './Bar.es6.js';
 import Chart from './Chart.es6.js';
 import { connect } from 'react-redux';
-import { thunk } from 'redux-thunk';
-
 export default class App extends Component {
-	getDefaultProps() {
-		return {
-			width: 500,
-			height: 500
-		}
-	}
-
 	render() {
 		debugger
 		return (
@@ -20,10 +12,16 @@ export default class App extends Component {
 					height={this.props.height}>
 				<Bar data={this.state.data}
 					width={this.props.width}
-					height={this.props.height}/>
+					height={this.props.height}>
+				</Bar>
 				</Chart>
 			</div>
-		)
+		);
 	}
 };
 
+function select(state) {
+	return state;
+}
+
+export default connect(select)(App);
