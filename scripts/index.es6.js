@@ -1,6 +1,6 @@
 import 'babel-core/polyfill';
 import thunkMiddleware from 'redux-thunk';
-import Provider from 'react-redux';
+import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import { fetchDistricts, fetchSchools } from './actions.es6.js';
@@ -31,6 +31,7 @@ store.dispatch(fetchDistricts('California')).then(state =>
 		Promise.all(schoolsRequestPromises).then(() =>
 			{
 				let rootElement = document.getElementById('root');
+				debugger
 				return React.render(
 				  // The child must be wrapped in a function
 				  // to work around an issue in React 0.13.

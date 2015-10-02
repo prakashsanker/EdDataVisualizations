@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class Bar extends React.Component {
+export default class Bar extends React.Component {
 	getDefaultProps() {
 		return {
 			data: []

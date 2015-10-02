@@ -1,6 +1,6 @@
 import React from 'react';
-import { Bar } from './Bar.es6.js';
-import { Chart } from './Chart.es6.js';
+import Bar from './Bar.es6.js';
+import Chart from './Chart.es6.js';
 import { connect } from 'react-redux';
 
 class App extends React.Component {
