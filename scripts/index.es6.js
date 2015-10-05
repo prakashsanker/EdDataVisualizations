@@ -21,36 +21,8 @@ const createStoreWithMiddleware = applyMiddleware(
 
 const store = createStoreWithMiddleware(rootReducer);
 
-// store.dispatch(fetchDistricts('California')).then(state =>
-// 	{
-// 		var districts = store.getState().districtsByState['California'].districts;
-// 		var schoolsRequestPromises = [];
-// 		for(var i = 0; i < districts.length; i++) {
-// 			schoolsRequestPromises.push(store.dispatch(fetchSchools(districts[i].id)));
-// 		}
-// 		// Promise.all(schoolsRequestPromises).then(() =>
-// 		// 	{
-// 		// 		let rootElement = document.getElementById('root');
-// 		// 		debugger
-// 		// 		return React.render(
-// 		// 		  // The child must be wrapped in a function
-// 		// 		  // to work around an issue in React 0.13.
-// 		// 		  <Provider store={store}>
-// 		// 		    {() => <App />}
-// 		// 		  </Provider>,
-// 		// 		  rootElement
-// 		// 		 );
-// 		// 	})
-// 			// .catch((a) => {
-// 			// 	debugger
-// 			// });
-		
-// 	}
-// );
-
 let rootElement = document.getElementById('root');
-console.log("root element");
-console.log(rootElement);
+
 React.render(
   // The child must be wrapped in a function
   // to work around an issue in React 0.13.

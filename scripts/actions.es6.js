@@ -62,7 +62,10 @@ export function fetchDistricts(geoState) {
 		return fetch(`http://localhost:8100/districts/`)
 	        .then(response => response.json())
 			.then(json => {
-				dispatch(receiveDistricts(geoState, json))
+				dispatch(receiveDistricts(geoState, json));
+				for (var i = 0; i < json.length; i++) {
+ 					dispatch(fetchSchools(json[i].id));
+				};
 			});
 	}
 }

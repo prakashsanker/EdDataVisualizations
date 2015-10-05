@@ -17,14 +17,7 @@ class App extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
 		var props = this.props;
-		dispatch(fetchDistricts('California')).then(state => {
-			debugger
-			var districts = props.districtsByState['California'].districts;
-			var schoolsRequestPromises = [];
-			for(var i = 0; i < districts.length; i++) {
- 				schoolsRequestPromises.push(store.dispatch(fetchSchools(districts[i].id)));
- 			}
-		});
+		dispatch(fetchDistricts('California'));
 	}
 
 	render() {
@@ -32,7 +25,7 @@ class App extends React.Component {
 			<div class="app">
 				<Chart width={this.props.width}
 					height={this.props.height}>
-				<Bar data={this.state}
+				<Bar data={this.props}
 					width={this.props.width}
 					height={this.props.height}>
 				</Bar>
