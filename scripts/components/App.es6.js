@@ -7,11 +7,8 @@ import { fetchDistricts, fetchSchools } from '../actions.es6.js';
 
 class App extends React.Component {
 
-	getDefaultProps() {
-		return {
-          width: 500,
-          height: 500
-        };
+	constructor(props) {
+		super(props);
 	}
 
 	componentDidMount() {
@@ -27,17 +24,17 @@ class App extends React.Component {
 					height={this.props.height}>
 				<Bar data={this.props}
 					width={this.props.width}
-					height={this.props.height}>
-				</Bar>
+					height={this.props.height} />
 				</Chart>
 			</div>
 		);
 	}
 };
 
+App.defaultProps = { width: 500, height: 500};
+
 App.propTypes = {
 	dispatch: React.PropTypes.func.isRequired,
-	isFetching: React.PropTypes.bool.isRequired,
 	lastUpdated: React.PropTypes.number,
 	width: React.PropTypes.number,
 	height: React.PropTypes.number
