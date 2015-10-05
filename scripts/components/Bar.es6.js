@@ -4,10 +4,9 @@ export default class Bar extends React.Component {
 
 	constructor (props) {
 		super(props);
-		debugger
 	}
+
 	shouldComponentUpdate(nextProps) {
-		debugger
 		return this.props.data !== nextProps.data;
 	}
 
