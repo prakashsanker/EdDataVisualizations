@@ -51,14 +51,14 @@ export default class Bar extends React.Component {
 };
 
 class Rect extends React.Component {
-	// getDefaultProps() {
-	// 	return {
-	// 		width: 0,
-	// 		height: 0,
-	// 		x: 0,
-	// 		y: 0
-	// 	}
-	// }
+	getDefaultProps() {
+		return {
+			width: 0,
+			height: 0,
+			x: 0,
+			y: 0
+		}
+	}
 
 	shouldComponentUpdate(nextProps) {
 		return this.props.height !== nextProps.height;
