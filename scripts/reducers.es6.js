@@ -8,7 +8,7 @@ import { normalize, Schema, arrayOf } from 'normalizr';
 function districts(state = {
 	isFetching: false,
 	didInvalidate: false,
-	items: []
+	districts: []
 }, action) {
 	switch(action.type) {
 		case REQUEST_DISTRICTS:

@@ -13,13 +13,20 @@ export default class Bar extends React.Component {
 
 	render() {
 		let props = this.props;
-		let districtData = this.props.districtsByState;
-		let data = districtData.map((d) =>
-			{
-				return d.y;
-			}
-		);
+		let districtData = this.props.data.districtsByState;
+		if (Object.keys(districtData).length === 0) {
+			var data = [];
+		} else {
+			
+			var data = districtData.California.districts.map((d) =>
+				{
+					return d.y;
+				}
+			);
 
+		}
+
+		debugger
 		let yScale = d3.scale.linear()
 			.domain([0, d3.max(data)])
 			.range([0, this.props.height]);
@@ -55,7 +62,6 @@ class Rect extends React.Component {
 	}
 
 	render() {
-		debugger
 		return (
 			<rect className="bar"
 				height={this.props.height}
