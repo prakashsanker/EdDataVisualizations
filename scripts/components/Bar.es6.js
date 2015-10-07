@@ -107,11 +107,34 @@ class Rect extends mixin(SetIntervalMixin) {
 		return this.props.height !== nextProps.height;
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({milliseconds: 0, height: this.props.height});
+	}
+
+	componentDidMount() {
+		this.setInterval(this.tick, 10);
+	}
+
+	tick(start) {
+		if (this.state) {
+			this.setState({milliseconds: this.state.milliseconds + 10});
+		}
+	}
+
 	render() {
+		super.render();
+		var easyeasy = d3.ease('back-out');
+		var y = this.props.y;
+		var height = this.props.height;
+		if (this.state) {
+			var height = this.state.height + (this.props.height - this.state.height) * easyeasy(Math.min(1, this.state.milliseconds/1000));
+			var y = this.props.height - height + this.props.y;
+		}
+
 		return (
 			<rect className="bar"
-				height={this.props.height}
-				y={this.props.y}
+				height={height}
+				y={y}
 				width={this.props.width}
 				x={this.props.x}
 			>
