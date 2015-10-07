@@ -1,5 +1,5 @@
 import React from 'react';
-import {Component} from 'react'; 
+import mixin from 'es6-react-mixins';
 
 export default class Bar extends React.Component {
 
@@ -57,7 +57,6 @@ export default class Bar extends React.Component {
 			.domain(d3.range(data.length))
 			.rangeRoundBands([0, this.props.width]);
 
-		debugger
 		let bars = data.map((point, i) => {
 			var height = yScale(point),
 			y = props.height - height,
@@ -79,7 +78,31 @@ export default class Bar extends React.Component {
 	}
 };
 
-class Rect extends React.Component {
+
+const SetIntervalMixin = base => class extends base {
+	componentWillMount() {
+		this.intervals = [];
+	}
+
+	setInterval() {
+		this.intervals.push(setInterval.apply(null, arguments));
+	}
+
+	componentWillUnmount() {
+		this.intervals.map(clearInterval);
+	}
+};
+
+class Rect extends mixin(SetIntervalMixin) {
+
+	componentWillMount() {
+		super.componentWillMount();
+	}
+
+	componentWillUnmount() {
+		super.componentWillUnmount();
+	}
+
 	shouldComponentUpdate(nextProps) {
 		return this.props.height !== nextProps.height;
 	}
