@@ -1,4 +1,5 @@
 import React from 'react';
+import {Component} from 'react'; 
 
 export default class Bar extends React.Component {
 
@@ -11,9 +12,9 @@ export default class Bar extends React.Component {
 	}
 
 	render() {
-		debugger
 		let props = this.props;
-		let data = props.data.map((d) =>
+		let districtData = this.props.districtsByState;
+		let data = districtData.map((d) =>
 			{
 				return d.y;
 			}
