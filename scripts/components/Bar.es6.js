@@ -17,16 +17,14 @@ export default class Bar extends React.Component {
 		if (Object.keys(districtData).length === 0) {
 			var data = [];
 		} else {
-			
 			var data = districtData.California.districts.map((d) =>
 				{
-					return d.y;
+					return d.expenditure;
 				}
 			);
 
 		}
 
-		debugger
 		let yScale = d3.scale.linear()
 			.domain([0, d3.max(data)])
 			.range([0, this.props.height]);

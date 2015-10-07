@@ -23,9 +23,6 @@ const store = createStoreWithMiddleware(rootReducer);
 
 let rootElement = document.getElementById('root');
 
-console.log("root Element");
-console.log(rootElement);
-
 React.render(
   // The child must be wrapped in a function
   // to work around an issue in React 0.13.
