@@ -8,7 +8,34 @@ export default class Bar extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		return this.props.data !== nextProps.data;
+		var currentDistrictsByState = this.props.data.districtsByState.California;
+		var nextDistrictsByState = nextProps.data.districtsByState.California;
+		var currentSchools = this.props.data.schoolsByDistrict;
+		var nextSchools = nextProps.data.schoolsByDistrict;
+		var fetchindDistricts = false;
+		var currentDistrictsIsFetching, nextDistrictsIsFetching, currentSchoolsIsFetching, nextSchoolsIsFetching;
+
+		if (typeof currentDistrictsByState === "undefined") {
+			currentDistrictsIsFetching = false;
+		} else {
+			currentDistrictsIsFetching = true;
+		}
+
+		if (typeof nextDistrictsByState === "undefined") {
+			nextDistrictsIsFetching = false;
+		} else {
+			nextDistrictsIsFetching = true;
+		}
+
+		if (currentDistrictsIsFetching=== true && nextDistrictsIsFetching === false) {
+			console.log("return true");
+			return true;
+		} else if (currentSchools.isFetching === true && nextSchools.isFetching === false) {
+			console.log("return true");
+			return true; 
+		}
+		console.log("return false");
+		return false;
 	}
 
 	render() {

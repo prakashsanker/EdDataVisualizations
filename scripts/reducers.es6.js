@@ -27,21 +27,23 @@ function districts(state = {
 	}
 }
 
-function schoolsByDistrict(state = [], action) {
+function schoolsByDistrict(state = {
+	isFetching: false
+}, action) {
 	switch(action.type){
 		case REQUEST_SCHOOLS:
 			return Object.assign({}, state, {
+				isFetching: true,
 				[action.districtId]: {
-					isFetching: true
+					schools: []
 				}
 			});
 		case RECEIVE_SCHOOLS:
-			var normalizedDistrict = normalize(action.district, district);
-			var toCopy = Object.assign({}, normalizedDistrict, {
-				isFetching: true
-			});
 			return Object.assign({}, state, {
-				[action.district.id]: toCopy
+				isFetching: false,
+				[action.district.id]: {
+					schools: action.district.schools
+				}
 			});
 		default:
 			return state;

@@ -30,7 +30,6 @@ export function fetchSchools(districtId) {
 		return fetch(`http://localhost:8100/district/${districtId}/demography`)
 			.then(response => response.json())
 			.then(json => {
-				debugger
 				dispatch(receiveSchools(districtId, json))
 			});
 	};
