@@ -28,13 +28,10 @@ export default class Bar extends React.Component {
 		}
 
 		if (currentDistrictsIsFetching=== true && nextDistrictsIsFetching === false) {
-			console.log("return true");
 			return true;
 		} else if (currentSchools.isFetching === true && nextSchools.isFetching === false) {
-			console.log("return true");
 			return true; 
 		}
-		console.log("return false");
 		return false;
 	}
 
@@ -57,14 +54,15 @@ export default class Bar extends React.Component {
 			.range([0, this.props.height]);
 
 		let xScale = d3.scale.ordinal()
-			.domain(d3.range(this.props.data.length))
-			.rangeRoundBands([0, this.props.width], 0.05);
+			.domain(d3.range(data.length))
+			.rangeRoundBands([0, this.props.width]);
+
+		debugger
 		let bars = data.map((point, i) => {
 			var height = yScale(point),
 			y = props.height - height,
 			width = xScale.rangeBand(),
 			x = xScale(i);
-
 			return (
 				<Rect height={height}
 					width={width}

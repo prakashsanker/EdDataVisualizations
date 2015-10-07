@@ -31,7 +31,7 @@ class App extends React.Component {
 	}
 };
 
-App.defaultProps = { width: 500, height: 500};
+App.defaultProps = { width: 10000, height: 1000};
 
 App.propTypes = {
 	dispatch: React.PropTypes.func.isRequired,
