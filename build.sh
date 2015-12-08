@@ -6,6 +6,8 @@ eval killall -9 grunt
 eval killall -9 go
 echo "Running npm install to pull dependencies"
 eval npm install --save
+echo "Pulling go dependencies"
+eval go get github.com/gorilla/mux
 echo "Building Karna"
 eval grunt build
 eval grunt default &
